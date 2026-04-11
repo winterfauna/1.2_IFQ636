@@ -13,9 +13,9 @@ res.status(500).json({ message: error.message });
 
 //Add Conference. 
 const addConference = async (req, res) => {
-const { title, description, date } = req.body;
+const { title, description, host, date } = req.body;
 try {
-const conference = await Conference.create({ userId: req.user.id, title, description, 
+const conference = await Conference.create({ userId: req.user.id, title, description, host, 
 date });
 res.status(201).json(conference);
 } catch (error) {
@@ -25,12 +25,13 @@ res.status(500).json({ message: error.message });
 
 //update conference
 const updateConference = async (req, res) => {
-const { title, description, completed, date } = req.body;
+const { title, description, host, completed, date } = req.body;
 try {
 const conference = await Conference.findById(req.params.id);
 if (!conference) return res.status(404).json({ message: 'Conference not found' });
 conference.title = title || conference.title;
 conference.description = description || conference.description;
+conference.host = host || conference.host;
 conference.completed = completed ?? conference.completed;
 conference.date = date || conference.date;
 const updatedConference = await conference.save();
