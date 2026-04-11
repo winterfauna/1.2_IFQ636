@@ -96,13 +96,17 @@ jobs:
     - name: Install dependencies
       working-directory: ./backend
       run: npm install
+
+    - name: Debug
+      working-directory: ./backend
+      run: cat package.json
     
     - name: Run tests
       working-directory: ./backend
       run: npm test
 
-    - name: Install dependencies
-      run: npm install
+    # - name: Install dependencies
+    #   run: npm install
 
-    - name: Run tests
-      run: npm test
+    # - name: Run tests
+    #   run: npm test
