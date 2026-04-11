@@ -21,7 +21,8 @@ const ConferenceList = ({ conferences, setConferences, setEditingConference }) =
         <div key={conference._id} className="bg-gray-100 p-4 mb-4 rounded shadow">
           <h2 className="font-bold">{conference.title}</h2>
           <p>{conference.description}</p>
-          <p className="text-sm text-gray-500">Deadline: {new Date(conference.date).toLocaleDateString()}</p>
+          <p>Hosted by: {conference.host}</p>
+          <p className="text-sm text-gray-500">Event date: {new Date(conference.date).toLocaleDateString()}</p>
           <div className="mt-2">
             <button
               onClick={() => setEditingConference(conference)}

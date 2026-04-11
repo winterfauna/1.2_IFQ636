@@ -4,17 +4,18 @@ import axiosInstance from '../axiosConfig';
 
 const ConferenceForm = ({ conferences, setConferences, editingConference, setEditingConference }) => {
   const { user } = useAuth();
-  const [formData, setFormData] = useState({ title: '', description: '', date: '' });
+  const [formData, setFormData] = useState({ title: '', description: '', host: '', date: '' });
 
   useEffect(() => {
     if (editingConference) {
       setFormData({
         title: editingConference.title,
         description: editingConference.description,
+        host: editingConference.host,
         date: editingConference.date,
       });
     } else {
-      setFormData({ title: '', description: '', date: '' });
+      setFormData({ title: '', description: '', host: '', date: '' });
     }
   }, [editingConference]);
 
@@ -33,7 +34,7 @@ const ConferenceForm = ({ conferences, setConferences, editingConference, setEdi
         setConferences([...conferences, response.data]);
       }
       setEditingConference(null);
-      setFormData({ title: '', description: '', date: '' });
+      setFormData({ title: '', description: '', host: '', date: '' });
     } catch (error) {
       alert('Failed to save conference.');
     }
@@ -41,7 +42,7 @@ const ConferenceForm = ({ conferences, setConferences, editingConference, setEdi
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6">
-      <h1 className="text-2xl font-bold mb-4">{editingConference ? 'Your Form Name: Edit Operation' : 'Your Form Name: Create Operation'}</h1>
+      <h1 className="text-2xl font-bold mb-4">{editingConference ? 'Edit Existing Conference' : 'Register New Conference'}</h1>
       <input
         type="text"
         placeholder="Title"
@@ -54,6 +55,13 @@ const ConferenceForm = ({ conferences, setConferences, editingConference, setEdi
         placeholder="Description"
         value={formData.description}
         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+        className="w-full mb-4 p-2 border rounded"
+      />
+      <input
+        type="text"
+        placeholder="host"
+        value={formData.host}
+        onChange={(e) => setFormData({ ...formData, host: e.target.value })}
         className="w-full mb-4 p-2 border rounded"
       />
       <input
